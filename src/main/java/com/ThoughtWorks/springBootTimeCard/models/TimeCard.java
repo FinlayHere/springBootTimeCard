@@ -15,11 +15,11 @@ public class TimeCard {
     private Integer id;
     @JsonProperty("user")
     @Column(name = "user_id")
-    @Pattern(regexp = "[0-9]{5}", message = "User should be 5 numbers")
+    @Pattern(regexp = "[0-9]{5}", message = "---EEROR--- \nUser should be 5 numbers")
     private String userId;
     @JsonProperty("notes")
     @Column(name = "notes")
-    @Length(min = 0, max = 100, message = "Notes should less than 100 characters")
+    @Length(min = 0, max = 100, message = "---EEROR--- \nNotes should less than 100 characters")
     private String notes;
     @JsonProperty("timecard")
     @OneToMany(mappedBy = "timeCard")
