@@ -11,11 +11,14 @@ import java.util.List;
 public class TimeCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "card_id")
     private Integer id;
     @JsonProperty("user")
+    @Column(name = "user_id")
     @Pattern(regexp = "[0-9]{5}", message = "User should be 5 numbers")
     private String userId;
     @JsonProperty("notes")
+    @Column(name = "notes")
     @Length(min = 0, max = 100, message = "Notes should less than 100 characters")
     private String notes;
     @JsonProperty("timecard")
