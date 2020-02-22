@@ -25,6 +25,10 @@ public class TimeCard {
     @OneToMany(mappedBy = "timeCard")
     private List<TimeCardDetail> timeCardDetails;
 
+    public void addForeignKeyToTimeCardDetail(){
+        this.timeCardDetails.forEach(cardDetail->{cardDetail.setTimeCard(this);});
+    }
+
     public TimeCard() {
     }
 
