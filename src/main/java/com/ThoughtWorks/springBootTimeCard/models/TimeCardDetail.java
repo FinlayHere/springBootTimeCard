@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -36,7 +38,7 @@ public class TimeCardDetail {
     private WorkWeek workWeek;
     @JsonProperty("billable")
     @Column(name = "billable")
-    @NotBlank(message = "---EEROR--- \nBillable should not be blank")
+    @NotNull(message = "---EEROR--- \nBillable should not be blank")
     private boolean billable;
     @JsonProperty("comments")
     @Column(name = "comments")

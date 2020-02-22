@@ -22,7 +22,7 @@ public class TimeCard {
     @Length(min = 0, max = 100, message = "---EEROR--- \nNotes should less than 100 characters")
     private String notes;
     @JsonProperty("timecard")
-    @OneToMany(mappedBy = "timeCard")
+    @OneToMany(mappedBy = "timeCard", cascade = CascadeType.PERSIST)
     private List<TimeCardDetail> timeCardDetails;
 
     public void addForeignKeyToTimeCardDetail(){
