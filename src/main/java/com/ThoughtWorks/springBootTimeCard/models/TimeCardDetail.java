@@ -1,22 +1,42 @@
 package com.ThoughtWorks.springBootTimeCard.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
+@Entity
+@Table(name = "timecard_detail")
 public class TimeCardDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "Project should not be blank")
     private String project;
+    @NotBlank(message = "Sub-Project should not be blank")
     private String subProject;
+    @NotBlank(message = "Location should not be blank")
     private String location;
+    @Temporal(TemporalType.DATE)
     private Date startDate;
+    @Embedded
+    @Valid
+    @JsonProperty(value = "timecards")
     private WorkWeek workWeek;
+    @NotBlank(message = "Billable should not be blank")
     private boolean billable;
+    @Length(max = 100, message = "Comments should not more than 100 characters")
     private String comments;
     private TimeCard timeCard;
 
     public TimeCardDetail() {
     }
 
-    public TimeCardDetail(Integer id, String project, String subProject, String location, Date startDate, WorkWeek workWeek, boolean billable, String comments) {
+    public TimeCardDetail(Integer id, String project, String subProject, String location, Date startDate,
+                          WorkWeek workWeek, boolean billable, String comments) {
         this.id = id;
         this.project = project;
         this.subProject = subProject;
