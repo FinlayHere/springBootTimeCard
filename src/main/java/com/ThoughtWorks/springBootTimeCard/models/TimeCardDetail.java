@@ -42,6 +42,8 @@ public class TimeCardDetail {
     @Column(name = "comments")
     @Length(max = 100, message = "Comments should not more than 100 characters")
     private String comments;
+    @ManyToOne
+    @JoinColumn(name = "card_id", nullable = false)
     private TimeCard timeCard;
 
     public TimeCardDetail() {
