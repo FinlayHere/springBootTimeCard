@@ -18,15 +18,15 @@ public class TimeCardDetail {
     @Column(name = "detail_id")
     private Integer id;
     @Column(name = "project")
-    @NotBlank(message = "---EEROR--- \nProject should not be blank")
+    @NotBlank(message = "---ERROR---> Project should not be blank")
     private String project;
     @JsonProperty("sub-project")
     @Column(name = "sub_project")
-    @NotBlank(message = "---EEROR--- \nSub-Project should not be blank")
+    @NotBlank(message = "---ERROR---> Sub-Project should not be blank")
     private String subProject;
     @JsonProperty("location")
     @Column(name = "location")
-    @NotBlank(message = "---EEROR--- \nLocation should not be blank")
+    @NotBlank(message = "---ERROR---> Location should not be blank")
     private String location;
     @JsonProperty("startDate")
     @Column(name = "start_date")
@@ -38,11 +38,11 @@ public class TimeCardDetail {
     private WorkWeek workWeek;
     @JsonProperty("billable")
     @Column(name = "billable")
-    @NotNull(message = "---EEROR--- \nBillable should not be blank")
+    @NotNull(message = "---ERROR---> Billable should not be blank")
     private boolean billable;
     @JsonProperty("comments")
     @Column(name = "comments")
-    @Length(max = 100, message = "---EEROR--- \nComments should not more than 100 characters")
+    @Length(max = 100, message = "---ERROR---> Comments should not more than 100 characters")
     private String comments;
     @ManyToOne
     @JoinColumn(name = "card_id", nullable = false)

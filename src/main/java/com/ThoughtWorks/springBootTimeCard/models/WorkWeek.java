@@ -12,38 +12,38 @@ import javax.validation.constraints.Size;
 public class WorkWeek {
     @JsonProperty(value = "Monday")
     @Column(name = "Monday")
-    @Max(value = 8, message = "---EEROR--- \nMonday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nMonday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Monday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Monday's Work should be positive")
     private Integer Monday;
     @JsonProperty(value = "Tuesday")
     @Column(name = "Tuesday")
-    @Max(value = 8, message = "---EEROR--- \nTuesday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nTuesday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Tuesday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Tuesday's Work should be positive")
     private Integer Tuesday;
     @JsonProperty(value = "Wednesday")
     @Column(name = "Wednesday")
-    @Max(value = 8, message = "---EEROR--- \nWednesday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nWednesday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Wednesday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Wednesday's Work should be positive")
     private Integer Wednesday;
     @JsonProperty(value = "Thursday")
     @Column(name = "Thursday")
-    @Max(value = 8, message = "---EEROR--- \nThursday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nThursday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Thursday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Thursday's Work should be positive")
     private Integer Thursday;
     @JsonProperty(value = "Friday")
     @Column(name = "Friday")
-    @Max(value = 8, message = "---EEROR--- \nFriday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nFriday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Friday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Friday's Work should be positive")
     private Integer Friday;
     @JsonProperty(value = "Saturday")
     @Column(name = "Saturday")
-    @Max(value = 8, message = "---EEROR--- \nSaturday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nSaturday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Saturday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Saturday's Work should be positive")
     private Integer Saturday;
     @JsonProperty(value = "Sunday")
     @Column(name = "Sunday")
-    @Max(value = 8, message = "---EEROR--- \nSunday's Work should less than 8 hours")
-    @Min(value = 0,message = "---EEROR--- \nSunday's Work should be positive")
+    @Max(value = 8, message = "---ERROR---> Sunday's Work should less than 8 hours")
+    @Min(value = 0,message = "---ERROR---> Sunday's Work should be positive")
     private int Sunday;
 
     public WorkWeek() {

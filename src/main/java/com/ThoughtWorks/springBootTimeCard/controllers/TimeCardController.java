@@ -30,7 +30,7 @@ public class TimeCardController {
     @ResponseBody
     public ResponseEntity<List<String>> timeCardExceptionHandler(ConstraintViolationException e){
         List<String> res = new ArrayList<>();
-        e.getConstraintViolations().forEach(constraintViolation -> {res.add(constraintViolation.getMessage()+"\n");});
+        e.getConstraintViolations().forEach(constraintViolation -> {res.add(constraintViolation.getMessage());});
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 }
