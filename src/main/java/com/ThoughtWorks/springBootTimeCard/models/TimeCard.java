@@ -15,10 +15,13 @@ public class TimeCard {
     private Integer id;
     @JsonProperty("user")
     @Column(name = "user_id")
+    //TODO: Error?
     @Pattern(regexp = "[0-9]{5}", message = "---EEROR--->User should be 5 numbers")
     private String userId;
     @JsonProperty("notes")
     @Column(name = "notes")
+    //TODO: Error?
+    //TODO: 这个min设置有问题
     @Length(min = 0, max = 100, message = "---EEROR--->Notes should less than 100 characters")
     private String notes;
     @JsonProperty("timecard")

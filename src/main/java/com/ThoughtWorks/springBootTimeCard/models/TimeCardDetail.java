@@ -45,6 +45,7 @@ public class TimeCardDetail {
     private String comments;
     @ManyToOne
     @JoinColumn(name = "card_id", nullable = false)
+    //TODO: C小写
     private TimeCard timeCard;
 
     public TimeCardDetail() {

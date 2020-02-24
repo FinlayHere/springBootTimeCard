@@ -27,6 +27,7 @@ public class TimeCardController {
 
     @PostMapping("/timecards")
     @ResponseBody
+    //TODO: 为什么返回值是string？
     public ResponseEntity<String> addTimeCard(@Valid @RequestBody TimeCard timeCard) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.addTimeCard(timeCard));
     }
@@ -34,6 +35,7 @@ public class TimeCardController {
     @GetMapping("/user/{id}/timecards")
     @ResponseBody
     public ResponseEntity<Collection<TimeCardDetail>> test(@PathVariable("id") String id){
+        //TODO: 删掉多余空行
 
         return ResponseEntity.status(HttpStatus.OK).body(service.searchTimeCardByUserId(id));
     }

@@ -27,6 +27,7 @@ public class TimeCardService {
         return "Created";
     }
 
+    //TODO: 注释删掉
     /**
      * return the list of time card detail, by given user id
      * @param id  user id
@@ -35,14 +36,18 @@ public class TimeCardService {
 
     public Collection<TimeCardDetail> searchTimeCardByUserId(String id) {
 
+        //TODO: res啥意思啊
         List<TimeCardDetail> res = new ArrayList<>();
 
         List<Integer> timeCardIdList = new ArrayList<>();
 
+        //TODO: 这里是在做什么？而且结果中有不需要的timeCard字段
         Collection<TimeCard> listOfTimeCard = timeCardRepository.findAllByUserId(id);
         listOfTimeCard.forEach(timeCard -> timeCard.setTimeCardDetails(null));
         listOfTimeCard.forEach(timeCard -> timeCardIdList.add(timeCard.getId()));
 
+        //TODO: TC_Id命名规范？timecardId
+        //TODO: java 8了解下？虽然这几行没啥用
         for (int TC_Id:timeCardIdList){
             for (TimeCardDetail tempTimeCardDetail:timecardDetailRepository.findByTimeCard_Id(TC_Id)){
                 res.add(tempTimeCardDetail);
