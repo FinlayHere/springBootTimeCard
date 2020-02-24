@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "timecard_detail")
-public class TimeCardDetail {
+public class TimecardDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "detail_id")
@@ -47,14 +47,12 @@ public class TimeCardDetail {
     @ManyToOne
     @JoinColumn(name = "card_id", nullable = false)
     @JsonIgnore
-    //TODO: C小写
-    private TimeCard timeCard;
+    private Timecard timecard;
 
-    public TimeCardDetail() {
+    public TimecardDetail() {
     }
 
-    public TimeCardDetail(Integer id, String project, String subProject, String location, Date startDate,
-                          WorkWeek workWeek, boolean billable, String comments) {
+    public TimecardDetail(Integer id,String project, String subProject, String location, Date startDate, WorkWeek workWeek, boolean billable, String comments, Timecard timecard) {
         this.id = id;
         this.project = project;
         this.subProject = subProject;
@@ -63,6 +61,7 @@ public class TimeCardDetail {
         this.workWeek = workWeek;
         this.billable = billable;
         this.comments = comments;
+        this.timecard = timecard;
     }
 
     public Integer getId() {
@@ -129,11 +128,11 @@ public class TimeCardDetail {
         this.comments = comments;
     }
 
-    public TimeCard getTimeCard() {
-        return timeCard;
+    public Timecard getTimecard() {
+        return timecard;
     }
 
-    public void setTimeCard(TimeCard timeCard) {
-        this.timeCard = timeCard;
+    public void setTimecard(Timecard timecard) {
+        this.timecard = timecard;
     }
 }

@@ -8,38 +8,35 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 @Entity
 @Table(name = "time_card")
-public class TimeCard {
+public class Timecard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
     private Integer id;
     @JsonProperty("user")
     @Column(name = "user_id")
-    //TODO: Error?
-    @Pattern(regexp = "[0-9]{5}", message = "---EEROR--->User should be 5 numbers")
+    @Pattern(regexp = "[0-9]{5}", message = "---ERROR--->User should be 5 numbers")
     private String userId;
     @JsonProperty("notes")
     @Column(name = "notes")
-    //TODO: Error?
-    //TODO: 这个min设置有问题
-    @Length(min = 0, max = 100, message = "---EEROR--->Notes should less than 100 characters")
+    @Length(max = 100, message = "---ERROR--->Notes should less than 100 characters")
     private String notes;
     @JsonProperty("timecard")
-    @OneToMany(mappedBy = "timeCard", cascade = CascadeType.PERSIST)
-    private List<TimeCardDetail> timeCardDetails;
+    @OneToMany(mappedBy = "timecard", cascade = CascadeType.PERSIST)
+    private List<TimecardDetail> timecardDetails;
 
     public void addForeignKeyToTimeCardDetail(){
-        this.timeCardDetails.forEach(cardDetail->{cardDetail.setTimeCard(this);});
+        this.timecardDetails.forEach(cardDetail->{cardDetail.setTimecard(this);});
     }
 
-    public TimeCard() {
+    public Timecard() {
     }
 
-    public TimeCard(Integer id, String userId, String notes, List<TimeCardDetail> timeCardDetails) {
+    public Timecard(Integer id, String userId, String notes, List<TimecardDetail> timecardDetails) {
         this.id = id;
         this.userId = userId;
         this.notes = notes;
-        this.timeCardDetails = timeCardDetails;
+        this.timecardDetails = timecardDetails;
     }
 
     public Integer getId() {
@@ -66,11 +63,11 @@ public class TimeCard {
         this.notes = notes;
     }
 
-    public List<TimeCardDetail> getTimeCardDetails() {
-        return timeCardDetails;
+    public List<TimecardDetail> getTimecardDetails() {
+        return timecardDetails;
     }
 
-    public void setTimeCardDetails(List<TimeCardDetail> timeCardDetails) {
-        this.timeCardDetails = timeCardDetails;
+    public void setTimecardDetails(List<TimecardDetail> timecardDetails) {
+        this.timecardDetails = timecardDetails;
     }
 }

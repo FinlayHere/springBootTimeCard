@@ -1,10 +1,7 @@
 package com.ThoughtWorks.springBootTimeCard.controllers;
 
-import com.ThoughtWorks.springBootTimeCard.models.TimeCard;
-import com.ThoughtWorks.springBootTimeCard.models.TimeCardDetail;
-import com.ThoughtWorks.springBootTimeCard.repositories.TimeCardRepository;
-import com.ThoughtWorks.springBootTimeCard.repositories.TimecardDetailRepository;
-import com.ThoughtWorks.springBootTimeCard.services.TimeCardService;
+import com.ThoughtWorks.springBootTimeCard.models.Timecard;
+import com.ThoughtWorks.springBootTimeCard.services.TimecardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,32 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class TimeCardController {
-    private TimeCardService service;
+public class TimecardController {
+    private TimecardService service;
 
-    public TimeCardController(TimeCardService service) {
+    public TimecardController(TimecardService service) {
         this.service = service;
     }
 
-
     @PostMapping("/timecards")
     @ResponseBody
-    //TODO: 为什么返回值是string？
-    public ResponseEntity<String> addTimeCard(@Valid @RequestBody TimeCard timeCard) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.addTimeCard(timeCard));
+    public ResponseEntity addTimeCard(@Valid @RequestBody Timecard timeCard) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
     @GetMapping("/user/{id}/timecards")
     @ResponseBody
-    public ResponseEntity<Collection<TimeCardDetail>> test(@PathVariable("id") String id){
-        //TODO: 删掉多余空行
-
-        return ResponseEntity.status(HttpStatus.OK).body(service.searchTimeCardByUserId(id));
+    public ResponseEntity<List<Timecard>> findTimecardByUserId(@PathVariable("id") String userId){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findTimecardByUserId(userId));
     }
 
     @ExceptionHandler({javax.validation.ConstraintViolationException.class})
