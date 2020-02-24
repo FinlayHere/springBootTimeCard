@@ -23,8 +23,11 @@ public class TimecardService {
         return "Created";
     }
 
-
     public List<Timecard> findTimecardByUserId(String userId) {
         return timecardRepository.findAllByUserId(userId);
+    }
+
+    public List<Timecard> findTimecardByProject(String projectName) {
+        return timecardRepository.findAllByTimecardDetails_project(projectName);
     }
 }

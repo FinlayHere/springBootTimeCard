@@ -23,6 +23,7 @@ public class TimecardController {
     @PostMapping("/timecards")
     @ResponseBody
     public ResponseEntity addTimeCard(@Valid @RequestBody Timecard timeCard) {
+        service.addTimeCard(timeCard);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
@@ -30,6 +31,12 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity<List<Timecard>> findTimecardByUserId(@PathVariable("id") String userId){
         return ResponseEntity.status(HttpStatus.OK).body(service.findTimecardByUserId(userId));
+    }
+
+    @GetMapping("/project/{id}/timecards")
+    @ResponseBody
+    public ResponseEntity<List<Timecard>> findTimeCardByProject(@PathVariable("id") String projectName){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findTimecardByProject(projectName));
     }
 
     @ExceptionHandler({javax.validation.ConstraintViolationException.class})
