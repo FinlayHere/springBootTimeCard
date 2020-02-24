@@ -1,5 +1,6 @@
 package com.ThoughtWorks.springBootTimeCard.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -45,6 +46,7 @@ public class TimeCardDetail {
     private String comments;
     @ManyToOne
     @JoinColumn(name = "card_id", nullable = false)
+    @JsonIgnore
     //TODO: C小写
     private TimeCard timeCard;
 
