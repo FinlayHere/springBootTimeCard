@@ -28,6 +28,6 @@ public class TimecardService {
     }
 
     public List<Timecard> findTimecardByProject(String projectName) {
-        return timecardRepository.findAllByTimecardDetails_project(projectName);
+        return timecardRepository.findAllByTimecardDetails_Project(projectName);
     }
 }
