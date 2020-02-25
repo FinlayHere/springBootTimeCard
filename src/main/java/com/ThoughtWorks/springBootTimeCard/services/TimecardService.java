@@ -9,7 +9,9 @@ import java.util.List;
 
 @Service
 public class TimecardService {
+    //TODO: 命名 repository
     private TimecardRepository timecardRepository;
+    //TODO: 引了没用
     private TimecardDetailRepository timecardDetailRepository;
 
     public TimecardService(TimecardRepository timeCardRepository, TimecardDetailRepository timecardDetailRepository) {
@@ -20,6 +22,7 @@ public class TimecardService {
     public String addTimeCard(Timecard timeCard) {
         timeCard.addForeignKeyToTimeCardDetail();
         timecardRepository.save(timeCard);
+        //TODO: 这个created返回值是什么?
         return "Created";
     }
 

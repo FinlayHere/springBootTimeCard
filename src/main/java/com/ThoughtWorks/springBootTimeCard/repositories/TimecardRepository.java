@@ -11,6 +11,7 @@ public interface TimecardRepository extends JpaRepository<Timecard, Integer> {
 
     List<Timecard> findAllByUserId(String UserId);
 
+    //TODO: projectName?
     List<Timecard> findAllByTimecardDetailsProject(String prjectName);
 
 }
