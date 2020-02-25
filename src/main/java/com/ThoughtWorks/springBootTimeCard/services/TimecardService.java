@@ -34,4 +34,8 @@ public class TimecardService {
                 .filter(timecard -> timecard.onlyGetTimecardContainSpecificSubProject(subProject).getTimecardDetails().size()>0)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public void deleteTimecardByItsId(int id) {
+        repository.deleteById(id);
+    }
 }

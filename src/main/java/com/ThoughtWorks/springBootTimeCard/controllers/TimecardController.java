@@ -2,6 +2,7 @@ package com.ThoughtWorks.springBootTimeCard.controllers;
 
 import com.ThoughtWorks.springBootTimeCard.models.Timecard;
 import com.ThoughtWorks.springBootTimeCard.services.TimecardService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,11 +50,25 @@ public class TimecardController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: sub-project not exist");
     }
 
+    @DeleteMapping("/timecards/{id}")
+    @ResponseBody
+    public ResponseEntity deleteTimecardByItsId(@PathVariable("id") int id){
+        service.deleteTimecardByItsId(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
+    }
+
     @ExceptionHandler({javax.validation.ConstraintViolationException.class})
     @ResponseBody
     public ResponseEntity<List<String>> timeCardExceptionHandler(ConstraintViolationException e){
         List<String> exceptionList= new ArrayList<>();
         e.getConstraintViolations().forEach(constraintViolation -> {exceptionList.add(constraintViolation.getMessage());});
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionList);
+    }
+
+    @ExceptionHandler({org.springframework.dao.EmptyResultDataAccessException.class})
+    @ResponseBody
+    public ResponseEntity dataNotExistExceptionHandler(EmptyResultDataAccessException e) {
+        String errorMessage = "Timecard " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 }
