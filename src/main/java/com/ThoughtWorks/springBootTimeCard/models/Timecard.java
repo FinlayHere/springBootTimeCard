@@ -5,7 +5,10 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Entity
 @Table(name = "time_card")
 public class Timecard {
@@ -69,5 +72,14 @@ public class Timecard {
 
     public void setTimecardDetails(List<TimecardDetail> timecardDetails) {
         this.timecardDetails = timecardDetails;
+    }
+
+    public Timecard onlyGetTimecardContainSpecificSubProject(String subProject) {
+        List<TimecardDetail> timecardDetailsContainSpecificSubProject = this.getTimecardDetails().stream()
+                .filter(timecardDetail -> timecardDetail.getSubProject().equals(subProject))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        this.setTimecardDetails(timecardDetailsContainSpecificSubProject);
+        return this;
     }
 }

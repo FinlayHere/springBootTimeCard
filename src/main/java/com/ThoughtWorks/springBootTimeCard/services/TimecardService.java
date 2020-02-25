@@ -2,35 +2,36 @@ package com.ThoughtWorks.springBootTimeCard.services;
 
 import com.ThoughtWorks.springBootTimeCard.models.Timecard;
 import com.ThoughtWorks.springBootTimeCard.repositories.TimecardRepository;
-import com.ThoughtWorks.springBootTimeCard.repositories.TimecardDetailRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TimecardService {
-    //TODO: 命名 repository
-    private TimecardRepository timecardRepository;
-    //TODO: 引了没用
-    private TimecardDetailRepository timecardDetailRepository;
+    private TimecardRepository repository;
 
-    public TimecardService(TimecardRepository timeCardRepository, TimecardDetailRepository timecardDetailRepository) {
-        this.timecardRepository = timeCardRepository;
-        this.timecardDetailRepository = timecardDetailRepository;
+    public TimecardService(TimecardRepository repository) {
+        this.repository = repository;
     }
 
-    public String addTimeCard(Timecard timeCard) {
+    public void addTimeCard(Timecard timeCard) {
         timeCard.addForeignKeyToTimeCardDetail();
-        timecardRepository.save(timeCard);
-        //TODO: 这个created返回值是什么?
-        return "Created";
+        repository.save(timeCard);
     }
 
     public List<Timecard> findTimecardByUserId(String userId) {
-        return timecardRepository.findAllByUserId(userId);
+        return repository.findAllByUserId(userId);
     }
 
     public List<Timecard> findTimecardByProject(String projectName) {
-        return timecardRepository.findAllByTimecardDetailsProject(projectName);
+        return repository.findAllByTimecardDetailsProject(projectName);
+    }
+
+    public List<Timecard> findSubProjectFromFindingByProjectResult(List<Timecard> findingResultByProject, String subProject) {
+        return findingResultByProject.stream()
+                .filter(timecard -> timecard.onlyGetTimecardContainSpecificSubProject(subProject).getTimecardDetails().size()>0)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
