@@ -25,9 +25,11 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity addTimeCard(@Valid @RequestBody Timecard timeCard) {
         service.addTimeCard(timeCard);
+        //TODO: return前一般有空行
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
+    //TODO: /users 吧
     @GetMapping("/user/{id}/timecards")
     @ResponseBody
     public ResponseEntity findTimecardByUserId(@PathVariable("id") String userId){
@@ -38,6 +40,7 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity findTimeCardByProject(@PathVariable("id") String project,
                                                 @RequestParam(required = false, value = "sub_project") String subProject) {
+        //TODO: 这里有很多判断，JAVA Optional可以了解一下，虽然这里可以不用Optional
         List<Timecard> findingResultByProject = service.findTimecardByProject(project);
         if (findingResultByProject.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: project not exist");
@@ -46,6 +49,7 @@ public class TimecardController {
             return ResponseEntity.status(HttpStatus.OK).body(findingResultByProject);
         }
         List<Timecard> findingResultBySubProject = service.findSubProjectFromFindingByProjectResult(findingResultByProject, subProject);
+        //TODO: return前一般有空行
         return findingResultBySubProject.size() > 0 ? ResponseEntity.status(HttpStatus.OK).body(findingResultBySubProject)
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: sub-project not exist");
     }
@@ -54,6 +58,7 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity deleteTimecardByItsId(@PathVariable("id") int id){
         service.deleteTimecardByItsId(id);
+        //TODO: return前一般有空行
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 
@@ -62,6 +67,7 @@ public class TimecardController {
     public ResponseEntity<List<String>> timeCardExceptionHandler(ConstraintViolationException e){
         List<String> exceptionList= new ArrayList<>();
         e.getConstraintViolations().forEach(constraintViolation -> {exceptionList.add(constraintViolation.getMessage());});
+        //TODO: return前一般有空行
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionList);
     }
 
@@ -69,6 +75,7 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity dataNotExistExceptionHandler(EmptyResultDataAccessException e) {
         String errorMessage = "Timecard " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
+        //TODO: return前一般有空行
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 }
