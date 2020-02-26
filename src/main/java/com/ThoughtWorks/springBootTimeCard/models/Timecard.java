@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Timecard {
     private String notes;
     @JsonProperty("timecard")
     @OneToMany(mappedBy = "timecard", cascade = CascadeType.PERSIST)
+    @Valid
     private List<TimecardDetail> timecardDetails;
 
     public void addForeignKeyToTimeCardDetail(){
@@ -80,7 +82,7 @@ public class Timecard {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         this.setTimecardDetails(timecardDetailsContainSpecificSubProject);
-        //TODO: return 前一般有一个空行
+
         return this;
     }
 }

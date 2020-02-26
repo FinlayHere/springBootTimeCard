@@ -29,16 +29,13 @@ public class TimecardService {
         return repository.findAllByTimecardDetailsProject(projectName);
     }
 
-    //TODO: 这个方法命名不好
-    public List<Timecard> findSubProjectFromFindingByProjectResult(List<Timecard> findingResultByProject, String subProject) {
+    public List<Timecard> findTimecardDetailBySubProjectForm(List<Timecard> findingResultByProject, String subProject) {
         return findingResultByProject.stream()
-                //TODO: > 前后都有空格
-                .filter(timecard -> timecard.onlyGetTimecardContainSpecificSubProject(subProject).getTimecardDetails().size()>0)
+                .filter(timecard -> timecard.onlyGetTimecardContainSpecificSubProject(subProject).getTimecardDetails().size() > 0)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    //TODO: 这个方法命名不好，可以简单叫delete(int id)或者deleteBy(int id)
-    public void deleteTimecardByItsId(int id) {
+    public void deleteBy(int id) {
         repository.deleteById(id);
     }
 }

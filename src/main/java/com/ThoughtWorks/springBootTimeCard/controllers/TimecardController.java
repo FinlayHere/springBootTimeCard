@@ -11,6 +11,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -25,12 +26,11 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity addTimeCard(@Valid @RequestBody Timecard timeCard) {
         service.addTimeCard(timeCard);
-        //TODO: return前一般有空行
+
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
-    //TODO: /users 吧
-    @GetMapping("/user/{id}/timecards")
+    @GetMapping("/users/{id}/timecards")
     @ResponseBody
     public ResponseEntity findTimecardByUserId(@PathVariable("id") String userId){
         return ResponseEntity.status(HttpStatus.OK).body(service.findTimecardByUserId(userId));
@@ -48,17 +48,24 @@ public class TimecardController {
         if (subProject == null) {
             return ResponseEntity.status(HttpStatus.OK).body(findingResultByProject);
         }
-        List<Timecard> findingResultBySubProject = service.findSubProjectFromFindingByProjectResult(findingResultByProject, subProject);
-        //TODO: return前一般有空行
+        List<Timecard> findingResultBySubProject = service.findTimecardDetailBySubProjectForm(findingResultByProject, subProject);
+
         return findingResultBySubProject.size() > 0 ? ResponseEntity.status(HttpStatus.OK).body(findingResultBySubProject)
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: sub-project not exist");
+    }
+
+    @PutMapping("/timecards/{id}")
+    @ResponseBody()
+    public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) {
+        service.updateTimecard()
+        return ResponseEntity.accepted().body(null);
     }
 
     @DeleteMapping("/timecards/{id}")
     @ResponseBody
     public ResponseEntity deleteTimecardByItsId(@PathVariable("id") int id){
-        service.deleteTimecardByItsId(id);
-        //TODO: return前一般有空行
+        service.deleteBy(id);
+
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 
@@ -67,7 +74,7 @@ public class TimecardController {
     public ResponseEntity<List<String>> timeCardExceptionHandler(ConstraintViolationException e){
         List<String> exceptionList= new ArrayList<>();
         e.getConstraintViolations().forEach(constraintViolation -> {exceptionList.add(constraintViolation.getMessage());});
-        //TODO: return前一般有空行
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionList);
     }
 
@@ -75,7 +82,7 @@ public class TimecardController {
     @ResponseBody
     public ResponseEntity dataNotExistExceptionHandler(EmptyResultDataAccessException e) {
         String errorMessage = "Timecard " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
-        //TODO: return前一般有空行
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 }
