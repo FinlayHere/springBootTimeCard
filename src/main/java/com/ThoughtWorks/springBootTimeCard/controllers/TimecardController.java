@@ -45,7 +45,7 @@ public class TimecardController {
         if (findingResultByProject.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: project not exist");
         }
-        if (subProject == null) {
+        if (!Optional.ofNullable(subProject).isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(findingResultByProject);
         }
         List<Timecard> findingResultBySubProject = service.findTimecardDetailBySubProjectForm(findingResultByProject, subProject);
@@ -57,8 +57,8 @@ public class TimecardController {
     @PutMapping("/timecards/{id}")
     @ResponseBody()
     public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) {
-        service.updateTimecard()
-        return ResponseEntity.accepted().body(null);
+
+        return ResponseEntity.accepted().body(service.updateTimecard(id, timecard));
     }
 
     @DeleteMapping("/timecards/{id}")

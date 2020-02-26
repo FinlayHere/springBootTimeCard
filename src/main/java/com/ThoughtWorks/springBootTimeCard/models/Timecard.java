@@ -85,4 +85,10 @@ public class Timecard {
 
         return this;
     }
+
+    public void deleteNoIdTimecardDetail() {
+        this.setTimecardDetails(this.getTimecardDetails().stream()
+                                                         .filter(timecardDetail -> timecardDetail.getId() != null)
+                                                         .collect(Collectors.toCollection(ArrayList::new)));
+    }
 }

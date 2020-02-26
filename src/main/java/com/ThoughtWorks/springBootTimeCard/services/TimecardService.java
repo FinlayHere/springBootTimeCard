@@ -1,11 +1,13 @@
 package com.ThoughtWorks.springBootTimeCard.services;
 
 import com.ThoughtWorks.springBootTimeCard.models.Timecard;
+import com.ThoughtWorks.springBootTimeCard.models.TimecardDetail;
 import com.ThoughtWorks.springBootTimeCard.repositories.TimecardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,5 +39,14 @@ public class TimecardService {
 
     public void deleteBy(int id) {
         repository.deleteById(id);
+    }
+
+    public Object updateTimecard(Integer id, Timecard updateInfo) {
+        Timecard targetTimecard = repository.findById(id).get();
+        if (Optional.ofNullable(updateInfo.getTimecardDetails()).isPresent()) {
+            updateInfo.deleteNoIdTimecardDetail();
+        }
+
+        return updateInfo;
     }
 }
