@@ -1,7 +1,6 @@
 package com.ThoughtWorks.springBootTimeCard.services;
 
 import com.ThoughtWorks.springBootTimeCard.models.Timecard;
-import com.ThoughtWorks.springBootTimeCard.models.TimecardDetail;
 import com.ThoughtWorks.springBootTimeCard.repositories.TimecardRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +40,20 @@ public class TimecardService {
         repository.deleteById(id);
     }
 
-    public Object updateTimecard(Integer id, Timecard updateInfo) {
-        Timecard targetTimecard = repository.findById(id).get();
+    public Object updateTimecard(Integer id, Timecard updateInfo) throws Exception {
+        Timecard targetTimecard;
+        if (repository.findById(id).isPresent()) {
+             targetTimecard = repository.findById(id).get();
+        }
+        else {
+            throw new Exception("Timecard not exist, please check timecard id");
+        }
+
         if (Optional.ofNullable(updateInfo.getTimecardDetails()).isPresent()) {
             updateInfo.deleteNoIdTimecardDetail();
         }
+        targetTimecard.adapt(updateInfo);
 
-        return updateInfo;
+        return repository.save(targetTimecard);
     }
 }

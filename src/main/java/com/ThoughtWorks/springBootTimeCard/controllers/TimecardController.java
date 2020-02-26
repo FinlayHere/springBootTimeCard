@@ -45,6 +45,7 @@ public class TimecardController {
         if (findingResultByProject.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: project not exist");
         }
+        //XXX: 不知道此处Optional使用的方法对不对
         if (!Optional.ofNullable(subProject).isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(findingResultByProject);
         }
@@ -56,7 +57,7 @@ public class TimecardController {
 
     @PutMapping("/timecards/{id}")
     @ResponseBody()
-    public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) {
+    public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) throws Exception {
 
         return ResponseEntity.accepted().body(service.updateTimecard(id, timecard));
     }
@@ -84,5 +85,11 @@ public class TimecardController {
         String errorMessage = "Timecard " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+    }
+
+    @ExceptionHandler({java.lang.Exception.class})
+    @ResponseBody
+    public ResponseEntity timecardNotExistHandler(Exception e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }

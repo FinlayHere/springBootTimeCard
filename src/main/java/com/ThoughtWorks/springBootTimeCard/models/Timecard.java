@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity
@@ -90,5 +91,30 @@ public class Timecard {
         this.setTimecardDetails(this.getTimecardDetails().stream()
                                                          .filter(timecardDetail -> timecardDetail.getId() != null)
                                                          .collect(Collectors.toCollection(ArrayList::new)));
+    }
+
+    public TimecardDetail findTimecardDetailById(int id) throws Exception {
+        for (TimecardDetail detail : this.getTimecardDetails()) {
+            if (detail.getId() == id) {
+                return detail;
+            }
+        }
+        throw new Exception("Timecard Detail Id No match");
+    }
+
+
+    public void adapt(Timecard updateInfo) throws Exception {
+        if (Optional.ofNullable(updateInfo.getUserId()).isPresent()) {
+            this.setUserId(updateInfo.getUserId());
+        }
+        if (Optional.ofNullable(updateInfo.getNotes()).isPresent()) {
+            this.setNotes(updateInfo.getNotes());
+        }
+        if (Optional.ofNullable(updateInfo.getTimecardDetails()).isPresent()) {
+            for (TimecardDetail detail : updateInfo.getTimecardDetails()){
+                TimecardDetail targetTimecardDetail = this.findTimecardDetailById(detail.getId());
+                targetTimecardDetail.adapt(detail);
+            }
+        }
     }
 }

@@ -1,11 +1,13 @@
 package com.ThoughtWorks.springBootTimeCard.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Optional;
 
 @Embeddable
 public class WorkWeek {
@@ -112,5 +114,29 @@ public class WorkWeek {
 
     public void setSunday(Integer sunday) {
         Sunday = sunday;
+    }
+
+    public void adapt(WorkWeek workWeek) {
+        if (Optional.ofNullable(workWeek.getMonday()).isPresent()) {
+            this.setMonday(workWeek.getMonday());
+        }
+        if (Optional.ofNullable(workWeek.getTuesday()).isPresent()) {
+            this.setTuesday(workWeek.getSunday());
+        }
+        if (Optional.ofNullable(workWeek.getWednesday()).isPresent()) {
+            this.setWednesday(workWeek.getWednesday());
+        }
+        if (Optional.ofNullable(workWeek.getThursday()).isPresent()) {
+            this.setThursday(workWeek.getThursday());
+        }
+        if (Optional.ofNullable(workWeek.getFriday()).isPresent()) {
+            this.setFriday(workWeek.getFriday());
+        }
+        if (Optional.ofNullable(workWeek.getSaturday()).isPresent()) {
+            this.setSaturday(workWeek.getSaturday());
+        }
+        if (Optional.ofNullable(workWeek.getSunday()).isPresent()) {
+            this.setSunday(workWeek.getSunday());
+        }
     }
 }

@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "timecard_detail")
@@ -134,5 +135,29 @@ public class TimecardDetail {
 
     public void setTimecard(Timecard timecard) {
         this.timecard = timecard;
+    }
+
+    public void adapt(TimecardDetail detail) {
+        if (Optional.ofNullable(detail.getProject()).isPresent()) {
+            this.setProject(detail.getProject());
+        }
+        if (Optional.ofNullable(detail.getSubProject()).isPresent()) {
+            this.setSubProject(detail.getSubProject());
+        }
+        if (Optional.ofNullable(detail.getLocation()).isPresent()) {
+            this.setLocation(detail.getLocation());
+        }
+        if (Optional.ofNullable(detail.getStartDate()).isPresent()) {
+            this.setStartDate(detail.getStartDate());
+        }
+        if (Optional.ofNullable(detail.isBillable()).isPresent()) {
+            this.setBillable(detail.isBillable());
+        }
+        if (Optional.ofNullable(detail.getComments()).isPresent()) {
+            this.setComments(detail.getComments());
+        }
+        if (Optional.ofNullable(detail.getWorkWeek()).isPresent()) {
+            this.getWorkWeek().adapt(detail.getWorkWeek());
+        }
     }
 }
