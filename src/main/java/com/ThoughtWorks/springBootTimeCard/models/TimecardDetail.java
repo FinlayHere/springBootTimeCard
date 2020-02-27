@@ -137,6 +137,7 @@ public class TimecardDetail {
         this.timecard = timecard;
     }
 
+
     public void adapt(TimecardDetail detail) {
         if (Optional.ofNullable(detail.getProject()).isPresent()) {
             this.setProject(detail.getProject());

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author fanchaokong
+ */
 @RestController
 @RequestMapping("/api")
 public class TimecardController {
@@ -90,7 +93,7 @@ public class TimecardController {
     @ExceptionHandler({org.springframework.dao.EmptyResultDataAccessException.class})
     @ResponseBody
     public ResponseEntity dataNotExistExceptionHandler(EmptyResultDataAccessException e) {
-        String errorMessage = "Timecard " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
+        String errorMessage = "Id " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }

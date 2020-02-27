@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author fanchaokong
+ */
 @Repository
 public interface TimecardRepository extends JpaRepository<Timecard, Integer> {
 
