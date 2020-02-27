@@ -27,7 +27,7 @@ public class Timecard {
     @Length(max = 100, message = "---ERROR--->Notes should less than 100 characters")
     private String notes;
     @JsonProperty("timecard")
-    @OneToMany(mappedBy = "timecard", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "timecard", cascade = CascadeType.ALL)
     @Valid
     private List<TimecardDetail> timecardDetails;
 

@@ -1,6 +1,7 @@
 package com.ThoughtWorks.springBootTimeCard.services;
 
 import com.ThoughtWorks.springBootTimeCard.models.Timecard;
+import com.ThoughtWorks.springBootTimeCard.repositories.TimecardDetailRepository;
 import com.ThoughtWorks.springBootTimeCard.repositories.TimecardRepository;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +10,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * @author fanchaokong
+ */
 @Service
 public class TimecardService {
     private TimecardRepository repository;
+    private TimecardDetailRepository detailRepository;
 
-    public TimecardService(TimecardRepository repository) {
+    public TimecardService(TimecardRepository repository, TimecardDetailRepository detailRepository) {
         this.repository = repository;
+        this.detailRepository = detailRepository;
     }
 
     public void addTimeCard(Timecard timeCard) {
@@ -55,5 +61,9 @@ public class TimecardService {
         targetTimecard.adapt(updateInfo);
 
         return repository.save(targetTimecard);
+    }
+
+    public void deleteTimecardDetailBy(int id) {
+        detailRepository.deleteById(id);
     }
 }

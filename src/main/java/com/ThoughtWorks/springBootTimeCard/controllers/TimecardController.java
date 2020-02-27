@@ -64,10 +64,18 @@ public class TimecardController {
 
     @DeleteMapping("/timecards/{id}")
     @ResponseBody
-    public ResponseEntity deleteTimecardByItsId(@PathVariable("id") int id){
+    public ResponseEntity deleteTimecardBy(@PathVariable("id") int id) {
         service.deleteBy(id);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
+    }
+
+    @DeleteMapping("/timecard-details/{id}")
+    @ResponseBody
+    public ResponseEntity deleteTimecardDetailBy(@PathVariable("id") int id) {
+        service.deleteTimecardDetailBy(id);
+
+        return ResponseEntity.accepted().body(null);
     }
 
     @ExceptionHandler({javax.validation.ConstraintViolationException.class})
