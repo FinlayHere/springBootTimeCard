@@ -46,7 +46,7 @@ public class TimecardService {
         repository.deleteById(id);
     }
 
-    public Object updateTimecard(Integer id, Timecard updateInfo) throws Exception {
+    public void updateTimecard(Integer id, Timecard updateInfo) throws Exception {
         Timecard targetTimecard;
         if (repository.findById(id).isPresent()) {
              targetTimecard = repository.findById(id).get();
@@ -60,10 +60,20 @@ public class TimecardService {
         }
         targetTimecard.adapt(updateInfo);
 
-        return repository.save(targetTimecard);
+        repository.save(targetTimecard);
     }
 
     public void deleteTimecardDetailBy(int id) {
         detailRepository.deleteById(id);
+    }
+
+    public List findAllTimecards() {
+
+        return repository.findAll();
+    }
+
+    public Timecard findTimeCardById(Integer id) {
+
+        return repository.findById(id).get();
     }
 }

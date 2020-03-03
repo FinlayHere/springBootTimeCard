@@ -33,6 +33,20 @@ public class TimecardController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
+    @GetMapping("/timecards/{id}")
+    @ResponseBody
+    public ResponseEntity findTimecardBy(@PathVariable Integer id) {
+
+        return ResponseEntity.ok(service.findTimeCardById(id));
+    }
+
+    @GetMapping("/timecards")
+    @ResponseBody
+    public ResponseEntity findAllTimecards(){
+        return ResponseEntity.ok(service.findAllTimecards());
+    }
+
+
     @GetMapping("/users/{id}/timecards")
     @ResponseBody
     public ResponseEntity findTimecardByUserId(@PathVariable("id") String userId){
@@ -62,7 +76,7 @@ public class TimecardController {
     @ResponseBody()
     public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) throws Exception {
 
-        return ResponseEntity.accepted().body(service.updateTimecard(id, timecard));
+        return ResponseEntity.accepted().body(null);
     }
 
     @DeleteMapping("/timecards/{id}")
@@ -103,4 +117,5 @@ public class TimecardController {
     public ResponseEntity timecardNotExistHandler(Exception e){
         return ResponseEntity.badRequest().body(e.getMessage());
     }
+
 }

@@ -16,105 +16,106 @@ public class WorkWeek {
     @Column(name = "Monday")
     @Max(value = 8, message = "---ERROR---> Monday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Monday's Work should be positive")
-    private Integer Monday;
+    private Integer monday;
     @JsonProperty(value = "Tuesday")
     @Column(name = "Tuesday")
     @Max(value = 8, message = "---ERROR---> Tuesday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Tuesday's Work should be positive")
-    private Integer Tuesday;
+    private Integer tuesday;
     @JsonProperty(value = "Wednesday")
     @Column(name = "Wednesday")
     @Max(value = 8, message = "---ERROR---> Wednesday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Wednesday's Work should be positive")
-    private Integer Wednesday;
+    private Integer wednesday;
     @JsonProperty(value = "Thursday")
     @Column(name = "Thursday")
     @Max(value = 8, message = "---ERROR---> Thursday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Thursday's Work should be positive")
-    private Integer Thursday;
+    private Integer thursday;
     @JsonProperty(value = "Friday")
     @Column(name = "Friday")
     @Max(value = 8, message = "---ERROR---> Friday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Friday's Work should be positive")
-    private Integer Friday;
+    private Integer friday;
     @JsonProperty(value = "Saturday")
     @Column(name = "Saturday")
     @Max(value = 8, message = "---ERROR---> Saturday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Saturday's Work should be positive")
-    private Integer Saturday;
+    private Integer saturday;
     @JsonProperty(value = "Sunday")
     @Column(name = "Sunday")
     @Max(value = 8, message = "---ERROR---> Sunday's Work should less than 8 hours")
     @Min(value = 0,message = "---ERROR---> Sunday's Work should be positive")
-    private int Sunday;
+    private Integer sunday;
 
     public WorkWeek() {
     }
 
+
     public WorkWeek(Integer monday, Integer tuesday, Integer wednesday, Integer thursday, Integer friday, Integer saturday, Integer sunday) {
-        Monday = monday;
-        Tuesday = tuesday;
-        Wednesday = wednesday;
-        Thursday = thursday;
-        Friday = friday;
-        Saturday = saturday;
-        Sunday = sunday;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
+        this.saturday = saturday;
+        this.sunday = sunday;
     }
 
     public Integer getMonday() {
-        return Monday;
+        return monday;
     }
 
     public void setMonday(Integer monday) {
-        Monday = monday;
+        this.monday = monday;
     }
 
     public Integer getTuesday() {
-        return Tuesday;
+        return tuesday;
     }
 
     public void setTuesday(Integer tuesday) {
-        Tuesday = tuesday;
+        this.tuesday = tuesday;
     }
 
     public Integer getWednesday() {
-        return Wednesday;
+        return wednesday;
     }
 
     public void setWednesday(Integer wednesday) {
-        Wednesday = wednesday;
+        this.wednesday = wednesday;
     }
 
     public Integer getThursday() {
-        return Thursday;
+        return thursday;
     }
 
     public void setThursday(Integer thursday) {
-        Thursday = thursday;
+        this.thursday = thursday;
     }
 
     public Integer getFriday() {
-        return Friday;
+        return friday;
     }
 
     public void setFriday(Integer friday) {
-        Friday = friday;
+        this.friday = friday;
     }
 
     public Integer getSaturday() {
-        return Saturday;
+        return saturday;
     }
 
     public void setSaturday(Integer saturday) {
-        Saturday = saturday;
+        this.saturday = saturday;
     }
 
     public Integer getSunday() {
-        return Sunday;
+        return sunday;
     }
 
     public void setSunday(Integer sunday) {
-        Sunday = sunday;
+        this.sunday = sunday;
     }
 
     public void adapt(WorkWeek workWeek) {
