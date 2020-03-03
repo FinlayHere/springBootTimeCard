@@ -5,17 +5,13 @@ import com.ThoughtWorks.springBootTimeCard.services.TimecardService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-/**
- * @author fanchaokong
- */
 @RestController
 @RequestMapping("/api")
 public class TimecardController {
@@ -116,7 +112,17 @@ public class TimecardController {
     @ExceptionHandler({java.lang.Exception.class})
     @ResponseBody
     public ResponseEntity timecardNotExistHandler(Exception e){
+
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler({org.springframework.web.bind.MethodArgumentNotValidException.class})
+    @ResponseBody
+    public ResponseEntity workTimeConstrainHandler(MethodArgumentNotValidException e){
+        Set<String> errors = new HashSet<>();
+        e.getBindingResult().getAllErrors().forEach(objectError -> errors.add(objectError.getDefaultMessage()));
+
+        return ResponseEntity.badRequest().body(errors);
     }
 
 }

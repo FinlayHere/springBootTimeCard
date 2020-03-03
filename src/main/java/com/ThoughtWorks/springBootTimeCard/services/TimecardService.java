@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * @author fanchaokong
- */
 @Service
 public class TimecardService {
     private TimecardRepository repository;

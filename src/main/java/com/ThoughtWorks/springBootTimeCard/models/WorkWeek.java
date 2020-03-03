@@ -1,6 +1,6 @@
 package com.ThoughtWorks.springBootTimeCard.models;
 
-import com.ThoughtWorks.springBootTimeCard.annotation.CheckWeekTime;
+import com.ThoughtWorks.springBootTimeCard.annotation.WorkTimeConstrain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 import java.util.Optional;
 
 @Embeddable
-@CheckWeekTime
+@WorkTimeConstrain
 public class WorkWeek {
     @JsonProperty(value = "Monday")
     @Column(name = "Monday")
