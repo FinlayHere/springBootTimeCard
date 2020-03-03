@@ -75,6 +75,7 @@ public class TimecardController {
     @PutMapping("/timecards/{id}")
     @ResponseBody()
     public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) throws Exception {
+        service.updateTimecard(id,timecard);
 
         return ResponseEntity.accepted().body(null);
     }
