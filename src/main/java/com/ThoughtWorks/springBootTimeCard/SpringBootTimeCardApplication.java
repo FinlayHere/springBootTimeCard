@@ -11,7 +11,6 @@ public class SpringBootTimeCardApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootTimeCardApplication.class, args);
-
         FeatureManager featureManager = context.getBean(FeatureManager.class);
         StaticFeatureManagerProvider.setFeatureManager(featureManager);
     }
