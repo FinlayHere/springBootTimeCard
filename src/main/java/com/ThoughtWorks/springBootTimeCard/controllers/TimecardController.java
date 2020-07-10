@@ -1,5 +1,6 @@
 package com.ThoughtWorks.springBootTimeCard.controllers;
 
+import com.ThoughtWorks.springBootTimeCard.featureToggle.MyFeature;
 import com.ThoughtWorks.springBootTimeCard.models.Timecard;
 import com.ThoughtWorks.springBootTimeCard.services.TimecardService;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -38,14 +39,14 @@ public class TimecardController {
 
     @GetMapping("/timecards")
     @ResponseBody
-    public ResponseEntity findAllTimecards(){
+    public ResponseEntity findAllTimecards() {
         return ResponseEntity.ok(service.findAllTimecards());
     }
 
 
     @GetMapping("/users/{id}/timecards")
     @ResponseBody
-    public ResponseEntity findTimecardByUserId(@PathVariable("id") String userId){
+    public ResponseEntity findTimecardByUserId(@PathVariable("id") String userId) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findTimecardByUserId(userId));
     }
 
@@ -71,7 +72,7 @@ public class TimecardController {
     @PutMapping("/timecards/{id}")
     @ResponseBody()
     public ResponseEntity updateTimecard(@PathVariable("id") Integer id, @RequestBody Timecard timecard) throws Exception {
-        service.updateTimecard(id,timecard);
+        service.updateTimecard(id, timecard);
 
         return ResponseEntity.accepted().body(null);
     }
@@ -94,9 +95,11 @@ public class TimecardController {
 
     @ExceptionHandler({javax.validation.ConstraintViolationException.class})
     @ResponseBody
-    public ResponseEntity<List<String>> timeCardExceptionHandler(ConstraintViolationException e){
-        List<String> exceptionList= new ArrayList<>();
-        e.getConstraintViolations().forEach(constraintViolation -> {exceptionList.add(constraintViolation.getMessage());});
+    public ResponseEntity<List<String>> timeCardExceptionHandler(ConstraintViolationException e) {
+        List<String> exceptionList = new ArrayList<>();
+        e.getConstraintViolations().forEach(constraintViolation -> {
+            exceptionList.add(constraintViolation.getMessage());
+        });
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionList);
     }
@@ -104,25 +107,34 @@ public class TimecardController {
     @ExceptionHandler({org.springframework.dao.EmptyResultDataAccessException.class})
     @ResponseBody
     public ResponseEntity dataNotExistExceptionHandler(EmptyResultDataAccessException e) {
-        String errorMessage = "Id " + e.getLocalizedMessage().substring(76).replace(" exists!"," not exists!");
+        String errorMessage = "Id " + e.getLocalizedMessage().substring(76).replace(" exists!", " not exists!");
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 
     @ExceptionHandler({java.lang.Exception.class})
     @ResponseBody
-    public ResponseEntity timecardNotExistHandler(Exception e){
+    public ResponseEntity timecardNotExistHandler(Exception e) {
 
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler({org.springframework.web.bind.MethodArgumentNotValidException.class})
     @ResponseBody
-    public ResponseEntity workTimeConstrainHandler(MethodArgumentNotValidException e){
+    public ResponseEntity workTimeConstrainHandler(MethodArgumentNotValidException e) {
         Set<String> errors = new HashSet<>();
         e.getBindingResult().getAllErrors().forEach(objectError -> errors.add(objectError.getDefaultMessage()));
 
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @GetMapping("/toggle")
+    public ResponseEntity TestToggle() {
+        if (MyFeature.NON_PROD.isActive()) {
+
+            return ResponseEntity.status(HttpStatus.OK).body("can use feature");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cannot feature");
     }
 
 }
